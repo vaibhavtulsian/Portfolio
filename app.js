@@ -68,7 +68,7 @@
       if (!res.ok) throw new Error('Failed to fetch repos');
       const data = await res.json();
 
-      window.PROJECTS = data.filter(repo => !repo.fork && repo.name.toLowerCase() !== 'portfolio').map((repo, i) => {
+      window.PROJECTS = data.filter(repo => !repo.fork && repo.name.toLowerCase() !== 'portfolio' && repo.name.toLowerCase() !== 'vaibhavtulsian').map((repo, i) => {
         const lang = repo.language ? repo.language.toLowerCase() : 'other';
         const catId = window.CATEGORIES.find(c => c.id === lang) ? lang : 'all';
         const palette = window.PROJECT_PALETTES[i % window.PROJECT_PALETTES.length];
