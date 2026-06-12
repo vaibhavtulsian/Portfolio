@@ -621,6 +621,8 @@ p {
   cursor: pointer;
   z-index: calc(var(--z-overlay) + 1);
   padding: 4px 0;
+  position: absolute;
+  right: var(--space-xl);
 }
 
 .nav-hamburger span {
