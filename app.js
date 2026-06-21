@@ -532,9 +532,7 @@
   }
 
   // ── PROJECTS ───────────────────────────────────────────────
-  function renderWork(initialCategory) {
-    const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
-    const activeCategory = initialCategory || urlParams.get('category') || 'all';
+  function renderWork() {
     document.title = 'Projects — Dev Portfolio';
 
     app.innerHTML = `
@@ -547,39 +545,18 @@
       </section>
 
       <section class="container" style="padding-top: var(--space-xl); position: relative; z-index: 2;">
-        <div class="filter-bar reveal">
-          <div class="filter-tabs" role="tablist" aria-label="Filter by language">
-            <button class="filter-tab ${activeCategory === 'all' ? 'active' : ''}" data-filter="all" role="tab">
-              <div class="repo-list-bg" style="background-image:url('${window.generateProjectThumbnail(window.PROJECT_PALETTES[0], 'all')}')"></div>
-              <span style="position:relative; z-index:2;">All</span>
-            </button>
-            ${window.CATEGORIES.filter(c => c.id !== 'all').map((c, i) => `
-              <button class="filter-tab ${activeCategory === c.id ? 'active' : ''}" data-filter="${c.id}" role="tab">
-                <div class="repo-list-bg" style="background-image:url('${window.generateProjectThumbnail(window.PROJECT_PALETTES[(i + 1) % window.PROJECT_PALETTES.length], c.id)}')"></div>
-                <span style="position:relative; z-index:2;">${c.label}</span>
-              </button>
-            `).join('')}
-          </div>
-        </div>
 
         <div class="repo-list-container" id="project-grid" role="list"></div>
         <div id="load-more-sentinel" style="height:1px;"></div>
       </section>
     `;
 
-    let currentFilter = activeCategory;
     let displayedCount = 0;
     const batchSize = 12;
 
     function getFilteredProjects() {
       let filtered = [...window.PROJECTS];
-
-      if (currentFilter !== 'all') {
-        filtered = filtered.filter(p => p.language.toLowerCase() === currentFilter);
-      } else {
-        filtered.sort((a, b) => b.year - a.year || b.id - a.id);
-      }
-
+      filtered.sort((a, b) => b.year - a.year || b.id - a.id);
       return filtered;
     }
 
@@ -640,13 +617,7 @@
 
     renderProjectGrid();
 
-    $$('.filter-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        currentFilter = tab.getAttribute('data-filter');
-        $$('.filter-tab').forEach(t => { t.classList.toggle('active', t === tab); });
-        renderProjectGrid(true);
-      });
-    });
+
 
     // Removed search and sort event listeners
 
