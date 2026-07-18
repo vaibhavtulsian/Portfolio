@@ -364,26 +364,63 @@
 
   // ── Kinetic Typography ─────────────────────────────────────
   function animateHeroText() {
-    const title = $('.hero-title');
-    if (title) {
-      title.style.opacity = '0';
-      title.style.transform = 'translateY(20px)';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          title.style.transition = 'opacity 0.8s var(--ease-out), transform 0.8s var(--ease-spring)';
-          title.style.opacity = '1';
-          title.style.transform = 'translateY(0)';
-        });
-      });
+    // Animate hero label
+    const label = $('.hero-label');
+    if (label) {
+      label.style.opacity = '0';
+      label.style.transform = 'translateY(-15px)';
+      setTimeout(() => {
+        label.style.transition = 'opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out)';
+        label.style.opacity = '1';
+        label.style.transform = 'translateY(0)';
+      }, 200);
     }
 
-    const subtitle = $('.hero-subtitle');
-    const actions = $('.hero-actions');
-    const tagline = $('.hero-tagline');
+    // Animate each letter of "Portfolio"
+    const chars = $$('.pt-char');
+    chars.forEach((ch, i) => {
+      ch.style.opacity = '0';
+      ch.style.transform = 'translateY(40px) scale(0.8)';
+      setTimeout(() => {
+        ch.style.transition = 'opacity 0.5s var(--ease-out), transform 0.6s var(--ease-spring)';
+        ch.style.opacity = '1';
+        ch.style.transform = 'translateY(0) scale(1)';
+      }, 400 + i * 70);
+    });
 
-    if (tagline) setTimeout(() => { tagline.style.opacity = '1'; tagline.style.transition = 'opacity 0.6s'; }, 200);
-    if (subtitle) setTimeout(() => { subtitle.style.opacity = '1'; subtitle.style.transition = 'opacity 0.8s'; }, 400);
-    if (actions) setTimeout(() => { actions.style.opacity = '1'; actions.style.transition = 'opacity 0.8s'; }, 600);
+    // Animate orb
+    const orbWrap = $('.pt-orb-wrap');
+    if (orbWrap) {
+      orbWrap.style.opacity = '0';
+      orbWrap.style.transform = 'scale(0.3)';
+      setTimeout(() => {
+        orbWrap.style.transition = 'opacity 0.8s var(--ease-out), transform 0.8s var(--ease-spring)';
+        orbWrap.style.opacity = '1';
+        orbWrap.style.transform = 'scale(1)';
+      }, 700);
+    }
+
+    // Animate signature
+    const sig = $('.portfolio-signature');
+    if (sig) {
+      sig.style.opacity = '0';
+      sig.style.transform = 'translateX(30px)';
+      setTimeout(() => {
+        sig.style.transition = 'opacity 0.7s var(--ease-out), transform 0.7s var(--ease-spring)';
+        sig.style.opacity = '1';
+        sig.style.transform = 'translateX(0)';
+      }, 1100);
+    }
+
+    // Animate frame corners
+    const corners = $$('.frame-corner');
+    corners.forEach((c, i) => {
+      c.style.opacity = '0';
+      setTimeout(() => {
+        c.style.transition = 'opacity 0.5s var(--ease-out)';
+        c.style.opacity = '1';
+      }, 1400 + i * 100);
+    });
   }
 
   // ── Page Transition ────────────────────────────────────────
@@ -509,15 +546,27 @@
   function renderHome() {
     app.innerHTML = `
       <section class="hero" id="hero-section">
-        <div class="container hero-content">
-          <p class="hero-tagline">${window.CONFIG.ROLE}</p>
-          <h1 class="hero-title text-gradient">Hi, I'm Vaibhav</h1>
-          <p class="hero-subtitle">${window.CONFIG.BIO}</p>
-          <div class="hero-actions">
-            <a href="#/work" class="btn btn-primary btn-lg" data-link data-cursor="Explore">
-              View Projects <span class="arrow" aria-hidden="true">→</span>
-            </a>
+        <div class="container hero-content portfolio-hero">
+
+          <!-- Corner brackets decoration -->
+          <div class="portfolio-frame" aria-hidden="true">
+            <span class="frame-corner frame-tl"></span>
+            <span class="frame-corner frame-tr"></span>
+            <span class="frame-corner frame-bl"></span>
+            <span class="frame-corner frame-br"></span>
           </div>
+
+          <!-- Label above title -->
+          <p class="hero-label" aria-label="Software Developer">
+            <span class="hero-label-italic">Software</span> Developer
+          </p>
+
+          <!-- Main "Portf(orb)lio" title -->
+          <h1 class="portfolio-title" aria-label="Portfolio">
+            <span class="pt-char">P</span><span class="pt-char">o</span><span class="pt-char">r</span><span class="pt-char">t</span><span class="pt-char">f</span><span class="pt-orb-wrap"><span class="pt-orb" aria-hidden="true"></span><span class="pt-orb-glow" aria-hidden="true"></span><span class="pt-orb-hands" aria-hidden="true">🙌</span></span><span class="pt-char">l</span><span class="pt-char">i</span><span class="pt-char">o</span>
+            <span class="portfolio-signature">Vaibhav Tulsian</span>
+          </h1>
+
         </div>
         <div class="scroll-indicator" aria-hidden="true">
           <span class="scroll-indicator-text">Scroll</span>

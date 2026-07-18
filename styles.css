@@ -1029,6 +1029,217 @@ p {
   opacity: 0;
 }
 
+/* ============================================================
+   14b. PORTFOLIO HERO (Reference-image inspired)
+   ============================================================ */
+.portfolio-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+/* Corner bracket decorations */
+.portfolio-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.frame-corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: rgba(255, 255, 255, 0.35);
+  border-style: solid;
+  border-width: 0;
+}
+.frame-tl {
+  top: 0; left: 0;
+  border-top-width: 3px;
+  border-left-width: 3px;
+}
+.frame-tr {
+  top: 0; right: 0;
+  border-top-width: 3px;
+  border-right-width: 3px;
+}
+.frame-bl {
+  bottom: 0; left: 0;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+}
+.frame-br {
+  bottom: 0; right: 0;
+  border-bottom-width: 3px;
+  border-right-width: 3px;
+}
+
+/* "Software Developer" label */
+.hero-label {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.8rem + 1.2vw, 1.6rem);
+  color: #ccc;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  margin-bottom: var(--space-xs);
+  text-align: left;
+  align-self: flex-start;
+  padding-left: var(--space-xl);
+  z-index: 2;
+}
+.hero-label-italic {
+  font-style: italic;
+  font-weight: 300;
+  color: #eee;
+}
+
+/* Main "Portfolio" title */
+.portfolio-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 3rem + 8vw, 10rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: transparent;
+  background: linear-gradient(180deg, #FFFFFF 0%, #999999 50%, #555555 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--space-xl);
+  text-shadow: none;
+}
+
+.pt-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Orb container (replaces the "o" in Portfolio) */
+.pt-orb-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 0.7em;
+  height: 0.7em;
+  vertical-align: middle;
+  margin: 0 -0.02em;
+  will-change: transform, opacity;
+}
+
+.pt-orb {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #ffffff 0%, #e0d0ff 25%, var(--brand-primary) 60%, #3a1070 100%);
+  box-shadow:
+    0 0 30px 10px rgba(123, 47, 190, 0.5),
+    0 0 60px 20px rgba(123, 47, 190, 0.25),
+    inset 0 -5px 15px rgba(0, 0, 0, 0.3);
+  animation: orbPulse 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.pt-orb-glow {
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123, 47, 190, 0.35) 0%, transparent 70%);
+  animation: orbGlow 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+.pt-orb-hands {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.3em;
+  z-index: 3;
+  filter: grayscale(0.3) brightness(0.8);
+  animation: handsFloat 3s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px 10px rgba(123, 47, 190, 0.5), 0 0 60px 20px rgba(123, 47, 190, 0.25), inset 0 -5px 15px rgba(0, 0, 0, 0.3); }
+  50% { transform: scale(1.05); box-shadow: 0 0 40px 15px rgba(123, 47, 190, 0.6), 0 0 80px 30px rgba(123, 47, 190, 0.3), inset 0 -5px 15px rgba(0, 0, 0, 0.3); }
+}
+
+@keyframes orbGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes handsFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+/* Signature name — overlaps bottom-right of Portfolio title */
+.portfolio-signature {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 3rem);
+  font-weight: 600;
+  background: linear-gradient(135deg, #b8f200 0%, #7ddf00 40%, #e0ff70 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: absolute;
+  bottom: -0.15em;
+  right: -0.1em;
+  z-index: 10;
+  line-height: 1;
+  white-space: nowrap;
+  filter: drop-shadow(0 0 10px rgba(184, 242, 0, 0.3));
+  animation: signatureShimmer 4s ease-in-out infinite;
+}
+
+@keyframes signatureShimmer {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(184, 242, 0, 0.3)); }
+  50% { filter: drop-shadow(0 0 20px rgba(184, 242, 0, 0.5)); }
+}
+
+/* Responsive adjustments for portfolio hero */
+@media (max-width: 768px) {
+  .portfolio-hero {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  .hero-label {
+    padding-left: var(--space-md);
+    font-size: clamp(0.8rem, 0.7rem + 1vw, 1.2rem);
+  }
+  .portfolio-title {
+    font-size: clamp(3rem, 2.5rem + 5vw, 6rem);
+  }
+  .portfolio-signature {
+    font-size: clamp(1.2rem, 1rem + 1.5vw, 1.8rem);
+    bottom: -0.1em;
+    right: 0;
+  }
+  .frame-corner {
+    width: 18px;
+    height: 18px;
+    border-width: 0;
+  }
+  .frame-tl { border-top-width: 2px; border-left-width: 2px; }
+  .frame-tr { border-top-width: 2px; border-right-width: 2px; }
+  .frame-bl { border-bottom-width: 2px; border-left-width: 2px; }
+  .frame-br { border-bottom-width: 2px; border-right-width: 2px; }
+}
+
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
